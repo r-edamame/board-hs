@@ -1,0 +1,7 @@
+
+require 'sinatra/activerecord'
+require 'sinatra/activerecord/rake'
+
+require './models/connect.rb'
+require './models/comment.rb'
+require './models/topic.rb'
