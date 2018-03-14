@@ -1,0 +1,37 @@
+
+version: '3'
+
+services:
+    server:
+        build: ./app
+        container_name: sinatra_app
+        volumes:
+            - ./app:/root/app
+            - ./public:/root/app/public:ro
+        ports:
+            - 3000:3000
+        networks:
+            - back_tier
+        links: 
+            - db
+        entrypoint: wait-for-it.sh db:5432 --
+        command: bash run.sh
+    db:
+        image: postgres:9.3
+        networks:
+            - back_tier
+        volumes:
+            - db-data:/var/lib/postgresql/data
+            - ./db-init.d:/docker-entrypoint-initdb.d
+    front:
+        build: ./front
+        volumes:
+            - ./front/src:/root/front/src
+            - ./public:/root/front/public
+        command: elm-make src/Main.elm --output public/main.js
+
+volumes:
+    db-data:
+
+networks:
+    back_tier:
