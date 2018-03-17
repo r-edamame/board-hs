@@ -7,7 +7,6 @@ import Servant      (serve, Proxy(..), (:<|>)(..), serveDirectoryFileServer
                     , Raw, Server, Application)
 
 import API.Comment
-import API.Static   (static)
 
 import Config
 

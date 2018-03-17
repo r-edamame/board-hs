@@ -17,7 +17,7 @@ import Control.Monad.Trans.Class    (lift)
 import Control.Monad.Trans.Except   (throwE)
 import Control.Monad.Trans.Reader   (ReaderT(..))
 
-import Model (Topic(..), Comment(..), EntityField(..), runDB)
+import Model                        (Topic(..), Comment(..), runDB, EntityField(..))
 
 import Config
 

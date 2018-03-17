@@ -14,18 +14,20 @@
 
 module Model ( Topic(..)
              , Comment(..)
+             , EntityField (..)
              , doMigrations
              , runDB
-             )where
+             ) where
 
-import Control.Monad.Reader (MonadIO, asks, liftIO, ReaderT)
+import Control.Monad.Reader     (MonadIO, asks, liftIO, ReaderT)
 
-import Database.Persist     ((==.))
-import Database.Persist.Sql (runMigration, runSqlPool, SqlBackend)
-import Database.Persist.TH  (mkMigrate, mkPersist, persistLowerCase,
-                             share, sqlSettings)
+import Database.Persist         ((==.))
+import Database.Persist.Class   (PersistEntity(..))
+import Database.Persist.Sql     (runMigration, runSqlPool, SqlBackend)
+import Database.Persist.TH      (mkMigrate, mkPersist, persistLowerCase,
+                                 share, sqlSettings)
 
-import Data.Text            (Text)
+import Data.Text                (Text)
 
 import Config
 
