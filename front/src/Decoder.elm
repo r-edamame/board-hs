@@ -20,6 +20,9 @@ decodeTopics =
 
 decodeComments : Decoder (List Types.Comment)
 decodeComments =
-    Decode.field "comment" Decode.string
-    |> Decode.map Types.Comment
-    |> Decode.list
+    let
+        text = Decode.field "comment" Decode.string
+        id = Decode.field "topicId" Decode.int
+    in
+        Decode.map2 Types.Comment text id
+        |> Decode.list

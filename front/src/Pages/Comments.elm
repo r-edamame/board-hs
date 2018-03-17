@@ -126,7 +126,7 @@ update msg model =
         ChangeInput input ->
             ({ model | commentInput=input }, Cmd.none)
         SubmitComment ->
-            ({ model | commentInput="" }, postComment model (Comment model.commentInput))
+            ({ model | commentInput="" }, postComment model (Comment model.commentInput model.topicId))
         Reload ->
             (model, getComments model) 
         Back ->
@@ -135,13 +135,13 @@ update msg model =
 getComments : Model -> Cmd Msg
 getComments model =
     HB.get "/api/comments"
-    |> HB.withQueryParams [("topic_id", toString model.topicId)]
+    |> HB.withQueryParams [("topicId", toString model.topicId)]
     |> HB.withExpectJson decodeComments
     |> HB.send ReceiveComments
 
 postComment : Model -> Comment -> Cmd Msg
 postComment model comment =
-    "/" ++ String.join "/" [ "api", "comments", toString model.topicId ]
+    "/" ++ String.join "/" [ "api", "comments" ]
     |> HB.post 
     |> HB.withJsonBody (encodeComment comment)
     |> HB.withExpectJson decodeComments
@@ -150,6 +150,6 @@ postComment model comment =
 getTopic : Model -> Cmd Msg
 getTopic model =
     HB.get "/api/topic"
-    |> HB.withQueryParams [("topic_id", toString model.topicId)]
+    |> HB.withQueryParams [("topicId", toString model.topicId)]
     |> HB.withExpectJson decodeTopic
     |> HB.send ReceiveTopic

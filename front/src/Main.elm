@@ -108,7 +108,7 @@ update msg model =
 
 main =
     Nav.program
-        (parsePath Route.route >> SetRoute)
+        (Route.fromLocation >> SetRoute)
         { init=init
         , update=update
         , view=view

@@ -8,4 +8,5 @@ type alias Topic =
 
 type alias Comment =
     { comment : String
+    , topicId : Int
     }

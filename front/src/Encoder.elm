@@ -7,7 +7,10 @@ import Types exposing (Comment)
 
 encodeComment : Comment -> Value
 encodeComment comment =
-    Encode.object [("comment", Encode.string comment.comment)]
+    Encode.object 
+        [ ("comment", Encode.string comment.comment)
+        , ("topicId", Encode.int comment.topicId)
+        ]
 
 encodeNewTopic : String -> Value
 encodeNewTopic title =

@@ -2,6 +2,7 @@
 module Route exposing (..)
 
 import UrlParser as Url exposing (Parser, (</>))
+import Navigation exposing (Location)
 
 type Route
     = Home
@@ -23,5 +24,11 @@ routeToString r =
         Comments id -> ["comments", toString id]
         NewTopic -> ["newtopic"]
     in
-        "/" ++ String.join "/" pathlist
+        "#/" ++ String.join "/" pathlist
 
+fromLocation : Location -> Maybe Route
+fromLocation location =
+    if String.isEmpty location.hash then 
+        Just Home
+    else
+        Url.parseHash route location
