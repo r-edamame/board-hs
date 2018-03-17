@@ -4,7 +4,6 @@ version: '3'
 services:
     server:
         build: ./app
-        container_name: sinatra_app
         volumes:
             - ./app:/root/app
             - ./public:/root/app/public:ro
@@ -15,7 +14,7 @@ services:
         links: 
             - db
         entrypoint: wait-for-it.sh db:5432 --
-        command: bash run.sh
+        command: stack exec board-app-exe
     db:
         image: postgres:9.3
         networks:
